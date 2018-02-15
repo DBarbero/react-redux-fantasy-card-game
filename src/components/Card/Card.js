@@ -1,15 +1,17 @@
 import React from 'react';
+import './Card.css'
 
-const Card = ({character, onHitCard, ...props}) => {
+const Card = ({character, onHitCard, onChangeName, ...props}) => {
   const { name = 'Character Name', race = 'human', health = 100, power = 30 } = character
   return (
-    <div>
-      <h3>{character.name}</h3>
+    <div className="Card">
+      <h3>{name}</h3>
+      <input type="text" onChange={onChangeName} value={name}/>
       <p>{race}</p>
       { props.children }
       <p>Health  &lt;3 : {health}</p>
       <p>Power (ﾉ´･ω･)ﾉ ﾐ ┸━┸: { power }</p>
-      <button onClick={onHitCard}>Hit Character</button>
+      <button onClick={onHitCard} className="button__hit">Hit Character</button>
     </div>
   )
 }

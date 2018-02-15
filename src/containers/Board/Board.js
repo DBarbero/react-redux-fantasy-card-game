@@ -17,10 +17,18 @@ class Board extends Component {
   }
 
   handleHitCharacter = (index) => {
-    console.log('hit character cliked', index)
     const newCards = this.state.cards.map( (card, i) => {
       if (i === index)
         return { ...card, health: card.health - 20}
+      return card
+    })
+    this.setState({ cards: newCards });
+  }
+
+  handleOnChangeName = (event, index) => {
+    const newCards = this.state.cards.map( (card, i) => {
+      if (i === index)
+        return { ...card, name: event.target.value}
       return card
     })
     this.setState({ cards: newCards });
@@ -30,10 +38,22 @@ class Board extends Component {
     const { cards } = this.state
     return (
       <div>
-        <Card character={cards[0]} onHitCard={() => this.handleHitCharacter(0)}></Card>
-        <Card character={cards[1]} onHitCard={() => this.handleHitCharacter(1)}></Card>
-        <Card character={cards[2]} onHitCard={() => this.handleHitCharacter(2)}><h3>My Precius!</h3></Card>
-        <Card character={cards[3]} onHitCard={() => this.handleHitCharacter(3)}></Card>
+        <Card character={cards[0]}
+          onHitCard={() => this.handleHitCharacter(0)}
+          onChangeName={(e) => this.handleOnChangeName(e, 0)}
+        ></Card>
+        <Card character={cards[1]}
+           onHitCard={() => this.handleHitCharacter(1)}
+           onChangeName={(e) => this.handleOnChangeName(e, 1)}
+        ></Card>
+        <Card character={cards[2]}
+          onHitCard={() => this.handleHitCharacter(2)}
+          onChangeName={(e) => this.handleOnChangeName(e, 2)}
+        ><h3>My Precius!</h3></Card>
+        <Card character={cards[3]}
+          onHitCard={() => this.handleHitCharacter(3)}
+          onChangeName={(e) => this.handleOnChangeName(e, 3)}
+        ></Card>
       </div>
     );
   }
