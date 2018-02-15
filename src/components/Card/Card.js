@@ -1,11 +1,16 @@
 import React from 'react';
 
-const Card = ({}) => (
-  <div>
-    <h3>Mago</h3>
-    <p>Health  &lt;3 : 100</p>
-    <p>Power (ﾉ´･ω･)ﾉ ﾐ ┸━┸: { Math.floor(Math.random() * 100) }</p>
-  </div>
-);
+const Card = ({character, ...props}) => {
+  const { name = 'Character Name', race = 'human', health = 100, power = 30 } = character
+  return (
+    <div>
+      <h3>{character.name}</h3>
+      <p>{race}</p>
+      { props.children }
+      <p>Health  &lt;3 : {health}</p>
+      <p>Power (ﾉ´･ω･)ﾉ ﾐ ┸━┸: { power }</p>
+    </div>
+  )
+}
 
 export default Card;

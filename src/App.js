@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Card from './components/Card/Card'
+import Board from './containers/Board/Board'
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Card></Card>
-        <Card></Card>
-        <Card></Card>
+        <Board></Board>
       </div>
     );
   }
