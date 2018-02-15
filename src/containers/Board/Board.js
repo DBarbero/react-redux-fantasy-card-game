@@ -7,12 +7,27 @@ class Board extends Component {
     super(props);
     this.state = {
       cards: [
-        { name: 'Gandalf', race: 'Mage', helth: '100', power: '80' },
-        { name: 'Frodo', race: 'Hobbit', helth: '100', power: '25' },
-        { name: 'Gollum', race: 'Hobbit', helth: '100', power: '25' },
-        { name: 'Legolas', race: 'Elf', helth: '300', power: '75' },
+        { name: 'Gandalf', race: 'Mage', health: '100', power: '80' },
+        { name: 'Frodo', race: 'Hobbit', health: '100', power: '25' },
+        { name: 'Gollum', race: 'Hobbit', health: '100', power: '25' },
+        { name: 'Legolas', race: 'Elf', health: '300', power: '75' },
       ]
-    };
+    }
+
+  }
+
+  handleHitCharacter = () => {
+    console.log('hit character cliked', this.state.cards)
+    this.setState(prevState => {
+      return {
+        cards: [
+          { name: 'Gandalf', race: 'Mage', health: '100', power: '80' },
+          { name: 'Frodo', race: 'Hobbit', health: '100', power: '25' },
+          { name: 'Gollum', race: 'Hobbit', health: '100', power: '25' },
+          { name: 'Legolas', race: 'Elf', health: prevState.cards[3].health-20, power: '75' },
+        ]
+      }
+    })
   }
 
   render() {
@@ -23,6 +38,7 @@ class Board extends Component {
         <Card character={cards[1]}></Card>
         <Card character={cards[2]}><h3>My Precius!</h3></Card>
         <Card character={cards[3]}></Card>
+        <button onClick={this.handleHitCharacter}>Hit Character</button>
       </div>
     );
   }
