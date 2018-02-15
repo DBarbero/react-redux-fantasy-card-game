@@ -16,29 +16,24 @@ class Board extends Component {
 
   }
 
-  handleHitCharacter = () => {
-    console.log('hit character cliked', this.state.cards)
-    this.setState(prevState => {
-      return {
-        cards: [
-          { name: 'Gandalf', race: 'Mage', health: '100', power: '80' },
-          { name: 'Frodo', race: 'Hobbit', health: '100', power: '25' },
-          { name: 'Gollum', race: 'Hobbit', health: '100', power: '25' },
-          { name: 'Legolas', race: 'Elf', health: prevState.cards[3].health-20, power: '75' },
-        ]
-      }
+  handleHitCharacter = (index) => {
+    console.log('hit character cliked', index)
+    const newCards = this.state.cards.map( (card, i) => {
+      if (i === index)
+        return { ...card, health: card.health - 20}
+      return card
     })
+    this.setState({ cards: newCards });
   }
 
   render() {
     const { cards } = this.state
     return (
       <div>
-        <Card character={cards[0]}></Card>
-        <Card character={cards[1]}></Card>
-        <Card character={cards[2]}><h3>My Precius!</h3></Card>
-        <Card character={cards[3]}></Card>
-        <button onClick={this.handleHitCharacter}>Hit Character</button>
+        <Card character={cards[0]} onHitCard={() => this.handleHitCharacter(0)}></Card>
+        <Card character={cards[1]} onHitCard={() => this.handleHitCharacter(1)}></Card>
+        <Card character={cards[2]} onHitCard={() => this.handleHitCharacter(2)}><h3>My Precius!</h3></Card>
+        <Card character={cards[3]} onHitCard={() => this.handleHitCharacter(3)}></Card>
       </div>
     );
   }
