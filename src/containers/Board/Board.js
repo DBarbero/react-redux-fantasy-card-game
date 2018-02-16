@@ -11,7 +11,8 @@ class Board extends Component {
         { name: 'Frodo', race: 'Hobbit', health: '100', power: '25' },
         { name: 'Gollum', race: 'Hobbit', health: '100', power: '25' },
         { name: 'Legolas', race: 'Elf', health: '300', power: '75' },
-      ]
+      ],
+      showCards: false
     }
 
   }
@@ -34,9 +35,15 @@ class Board extends Component {
     this.setState({ cards: newCards });
   }
 
+  handleToggleCards = () => {
+    this.setState({
+      showCards: !this.state.showCards
+    });
+  }
+
   render() {
     const { cards } = this.state
-    return (
+    const CardsComponent = (
       <div>
         <Card character={cards[0]}
           onHitCard={() => this.handleHitCharacter(0)}
@@ -54,6 +61,12 @@ class Board extends Component {
           onHitCard={() => this.handleHitCharacter(3)}
           onChangeName={(e) => this.handleOnChangeName(e, 3)}
         ></Card>
+      </div>
+    )
+    return (
+      <div>
+        <button onClick={this.handleToggleCards}>Toggle Cards</button>
+        { this.state.showCards && CardsComponent }
       </div>
     );
   }
