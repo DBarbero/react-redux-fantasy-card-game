@@ -9,6 +9,7 @@
   box-shadow: 0 2px 3px #ccc;
   padding: 16px;
   text-align: center;
+  border-radius: 10px;
 }
 
 .button__hit {
@@ -16,6 +17,7 @@
   font: inherit;
   border: 2px solid var(--button-color);
   padding: 8px;
+  border-radius: 5px;
 }
 
 .button__hit:hover {
