@@ -38,6 +38,7 @@ class Board extends Component {
   }
 
   handleToggleCards = () => {
+    this.props.onPlayerChange()
     this.setState({
       showCards: !this.state.showCards
     });
@@ -57,6 +58,7 @@ class Board extends Component {
     )
     return (
       <div>
+        <h2>{ this.props.isFirt ? 'First Player Turn' : 'Second Player Turn'}</h2>
         <button onClick={this.handleToggleCards}>Toggle Cards</button>
         { this.state.showCards && CardsComponent }
       </div>
@@ -73,7 +75,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onPlayerChange: () => dispatch()
+    onPlayerChange: () => dispatch({ type: 'CHANGE_PLAYER' })
   }
 }
 
