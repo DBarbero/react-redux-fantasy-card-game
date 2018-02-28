@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+
 import Card from '../../components/Card/Card'
 
 class Board extends Component {
@@ -63,4 +65,16 @@ class Board extends Component {
 
 }
 
-export default Board;
+const mapStateToProps = state => {
+  return {
+    isFirt: state.isFirstPlayer
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onPlayerChange: () => dispatch()
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
