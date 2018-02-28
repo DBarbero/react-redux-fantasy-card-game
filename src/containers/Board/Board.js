@@ -3,66 +3,34 @@ import { connect } from 'react-redux'
 
 import Card from '../../components/Card/Card'
 
-import { changePlayer } from '../../store/actions/actions'
+import { changePlayer, hitCard } from '../../store/actions/actions'
 
 class Board extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      cards: [
-        { id: 'c001', name: 'Gandalf', race: 'Mage', health: '100', power: '80' },
-        { id: 'c002', name: 'Frodo', race: 'Hobbit', health: '100', power: '25' },
-        { id: 'c003', name: 'Gollum', race: 'Hobbit', health: '100', power: '25' },
-        { id: 'c004', name: 'Legolas', race: 'Elf', health: '300', power: '75' },
-      ],
-      showCards: false
-    }
-
+    this.state = { }
   }
 
-  handleHitCharacter = (id) => {
-    const characterIndex = this.state.cards.findIndex( card => card.id === id)
-    const oldCharacter = this.state.cards[characterIndex]
-    const newCharacter = { ...oldCharacter, health: oldCharacter.health - 20}
-    const newCards = [...this.state.cards]
-    newCards[characterIndex] = newCharacter
-    this.setState({ cards: newCards });
-  }
-
-  handleOnChangeName = (event, id) => {
-    const newCards = this.state.cards.map( card => {
-      if (card.id === id)
-        return { ...card, name: event.target.value}
-      return card
-    })
-    this.setState({ cards: newCards });
-  }
-
-  handleToggleCards = () => {
-    this.props.onPlayerChange()
-    this.setState({
-      showCards: !this.state.showCards
-    });
-  }
 
   render() {
-    const { cards } = this.state
+    const { cards } = this.props
+
     const CardsComponent = (
       <div>
         { cards.map( card =>
           <Card key={card.id} character={card}
-            onHitCard={() => this.handleHitCharacter(card.id)}
-            onChangeName={ (e) => this.handleOnChangeName(e, card.id) }
+            onHitCard={() => this.props.onHitCard(card.id)}
           ></Card>
         ) }
       </div>
     )
+
     return (
       <div>
-        <h2>{ this.props.isFirst ? 'First Player Turn' : 'Second Player Turn'}</h2>
-        <button onClick={this.handleToggleCards}>Toggle Cards</button>
-        { this.state.showCards && CardsComponent }
+        <h2>{ this.props.isFirst ? 'First Player Turn' : 'Second Player Turn' }</h2>
+        <button onClick={this.props.onPlayerChange}>Toggle Player</button>
+        { this.props.isFirst && CardsComponent }
       </div>
     );
   }
@@ -71,13 +39,15 @@ class Board extends Component {
 
 const mapStateToProps = state => {
   return {
-    isFirst: state.isFirstPlayer
+    isFirst: state.turn.isFirstPlayer,
+    cards: state.board.cards
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onPlayerChange: () => dispatch(changePlayer())
+    onPlayerChange: () => dispatch(changePlayer()),
+    onHitCard: (id) => dispatch( hitCard(id, 10) )
   }
 }
 
