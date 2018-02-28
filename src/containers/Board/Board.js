@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 
 import Card from '../../components/Card/Card'
 
+import { changePlayer } from '../../store/actions/actions'
+
 class Board extends Component {
 
   constructor(props) {
@@ -58,7 +60,7 @@ class Board extends Component {
     )
     return (
       <div>
-        <h2>{ this.props.isFirt ? 'First Player Turn' : 'Second Player Turn'}</h2>
+        <h2>{ this.props.isFirst ? 'First Player Turn' : 'Second Player Turn'}</h2>
         <button onClick={this.handleToggleCards}>Toggle Cards</button>
         { this.state.showCards && CardsComponent }
       </div>
@@ -69,13 +71,13 @@ class Board extends Component {
 
 const mapStateToProps = state => {
   return {
-    isFirt: state.isFirstPlayer
+    isFirst: state.isFirstPlayer
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onPlayerChange: () => dispatch({ type: 'CHANGE_PLAYER' })
+    onPlayerChange: () => dispatch(changePlayer())
   }
 }
 

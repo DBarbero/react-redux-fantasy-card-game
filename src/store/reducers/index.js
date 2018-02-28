@@ -1,10 +1,12 @@
+import * as at from '../actions/actionTypes'
+
 const initialState = {
-  isFirstPlayer: false
+  isFirstPlayer: true
 }
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'CHANGE_PLAYER':
+    case at.CHANGE_PLAYER:
       return { ...state, isFirstPlayer: !state.isFirstPlayer}
   }
   return state
