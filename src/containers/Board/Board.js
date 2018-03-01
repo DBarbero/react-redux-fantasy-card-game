@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 
+import './Board.css'
 import Card from '../../components/Card/Card'
 
 import { changePlayer, hitCard } from '../../store/actions/actions'
@@ -14,13 +15,23 @@ class Board extends Component {
 
 
   render() {
-    const { cards } = this.props
+    const { isFirst, playerOneDeck, playerTwoDeck } = this.props
 
-    const CardsComponent = (
+    const PlayerOne = (
       <div>
-        { cards.map( card =>
+        { playerOneDeck.map( card =>
           <Card key={card.id} character={card}
-            onHitCard={() => this.props.onHitCard(card.id)}
+            onHitCard={() => this.props.onHitCard(isFirst, card.id)}
+          ></Card>
+        ) }
+      </div>
+    )
+
+    const PlayerTwo = (
+      <div>
+        { playerTwoDeck.map( card =>
+          <Card key={card.id} character={card}
+            onHitCard={() => this.props.onHitCard(isFirst, card.id)}
           ></Card>
         ) }
       </div>
@@ -30,7 +41,10 @@ class Board extends Component {
       <div>
         <h2>{ this.props.isFirst ? 'First Player Turn' : 'Second Player Turn' }</h2>
         <button onClick={this.props.onPlayerChange}>Toggle Player</button>
-        { this.props.isFirst && CardsComponent }
+        <div className="Board">
+          { PlayerOne }
+          { PlayerTwo }
+        </div>
       </div>
     );
   }
@@ -40,14 +54,15 @@ class Board extends Component {
 const mapStateToProps = state => {
   return {
     isFirst: state.turn.isFirstPlayer,
-    cards: state.board.cards
+    playerOneDeck: state.board.p1.cards,
+    playerTwoDeck: state.board.p2.cards
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onPlayerChange: () => dispatch(changePlayer()),
-    onHitCard: (id) => dispatch( hitCard(id, 10) )
+    onHitCard: (isFirst, id) => dispatch( hitCard(isFirst, id, 10) )
   }
 }
 
