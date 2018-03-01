@@ -10,7 +10,19 @@ class Board extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { }
+    this.state = {
+      hitPower: 0
+    }
+  }
+
+  handleGetPower = (power) => {
+    this.setState({ hitPower: power });
+  }
+
+  handleHitCard = (isFirst, id, damage) => {
+    this.props.onPlayerChange()
+    this.props.onHitCard(isFirst, id, damage)
+    this.setState({ hitPower: 0 });
   }
 
 
@@ -20,8 +32,9 @@ class Board extends Component {
     const PlayerOne = (
       <div>
         { playerOneDeck.map( card =>
-          <Card key={card.id} character={card}
-            onHitCard={() => this.props.onHitCard(isFirst, card.id)}
+          <Card key={card.id} isTurn={isFirst} character={card}
+            onHitCard={() => this.handleHitCard(isFirst, card.id, this.state.hitPower)}
+            onGetPower={() => this.handleGetPower(card.power)}
           ></Card>
         ) }
       </div>
@@ -30,8 +43,9 @@ class Board extends Component {
     const PlayerTwo = (
       <div>
         { playerTwoDeck.map( card =>
-          <Card key={card.id} character={card}
-            onHitCard={() => this.props.onHitCard(isFirst, card.id)}
+          <Card key={card.id} isTurn={!isFirst} character={card}
+            onHitCard={() => this.handleHitCard(isFirst, card.id, this.state.hitPower)}
+            onGetPower={() => this.handleGetPower(card.power)}
           ></Card>
         ) }
       </div>
@@ -40,6 +54,7 @@ class Board extends Component {
     return (
       <div>
         <h2>{ this.props.isFirst ? 'First Player Turn' : 'Second Player Turn' }</h2>
+        <h1>Damage: { this.state.hitPower }</h1>
         <button onClick={this.props.onPlayerChange}>Toggle Player</button>
         <div className="Board">
           { PlayerOne }
@@ -62,7 +77,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onPlayerChange: () => dispatch(changePlayer()),
-    onHitCard: (isFirst, id) => dispatch( hitCard(isFirst, id, 10) )
+    onHitCard: (isFirst, id, damage) => dispatch( hitCard(isFirst, id, damage) )
   }
 }
 

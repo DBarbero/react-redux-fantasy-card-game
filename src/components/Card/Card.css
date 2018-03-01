@@ -1,5 +1,8 @@
 :root {
-  --button-color: #f06148;
+  --card-color-power: #e3e6ff;
+  --card-color-hit: #ffc2c2;
+  --button-color-hit: #f06148;
+  --button-color-power: #48c7f0;
 }
 
 .Card {
@@ -10,19 +13,29 @@
   padding: 16px;
   text-align: center;
   border-radius: 10px;
+  cursor: pointer;
 }
 
-.button__hit {
+.power:hover { background-color: var(--card-color-power); border-color: var(--card-color-power); }
+.hit:hover { background-color: var(--card-color-hit); border-color: var(--card-color-hit); }
+
+.button {
+  cursor: pointer;
   background-color: white;
   font: inherit;
-  border: 2px solid var(--button-color);
+  border: 2px solid;
   padding: 8px;
   border-radius: 5px;
 }
 
-.button__hit:hover {
-  background-color: var(--button-color);
+.button:hover {
   color: white;
   font: inherit;
   padding: 8px;
 }
+
+.button__hit { border-color: var(--button-color-hit)}
+.button__hit:hover { background-color: var(--button-color-hit); }
+
+.button__power { border-color: var(--button-color-power)}
+.button__power:hover { background-color: var(--button-color-power); }
