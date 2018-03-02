@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import './Board.css'
 import Card from '../../components/Card/Card'
 
-import { changePlayer, hitCard } from '../../store/actions/actions'
+import { changePlayer, hitCard, fetchCards } from '../../store/actions/actions'
 
 class Board extends Component {
 
@@ -13,6 +13,10 @@ class Board extends Component {
     this.state = {
       hitPower: 0
     }
+  }
+
+  componentDidMount() {
+    this.props.onFetchCards()
   }
 
   handleGetPower = (power) => {
@@ -77,7 +81,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onPlayerChange: () => dispatch(changePlayer()),
-    onHitCard: (isFirst, id, damage) => dispatch( hitCard(isFirst, id, damage) )
+    onHitCard: (isFirst, id, damage) => dispatch( hitCard(isFirst, id, damage) ),
+    onFetchCards: () => dispatch( fetchCards() )
   }
 }
 
