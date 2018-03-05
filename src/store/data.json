@@ -1,0 +1,16 @@
+{
+  "players": {
+    "p1" : [
+      { "id": "c001", "name": "Gandalf", "race": "Mage", "health": "100", "power": "80" },
+      { "id": "c002", "name": "Frodo", "race": "Hobbit", "health": "100", "power": "25" },
+      { "id": "c003", "name": "Sam", "race": "Hobbit", "health": "100", "power": "25" },
+      { "id": "c004", "name": "Legolas", "race": "Elf", "health": "300", "power": "75" }
+    ],
+    "p2" : [
+      { "id": "c005", "name": "Saruman", "race": "Mage", "health": "100", "power": "80" },
+      { "id": "c006", "name": "Gollum", "race": "Hobbit", "health": "100", "power": "25" },
+      { "id": "c007", "name": "Orc1", "race": "Orc", "health": "100", "power": "100" },
+      { "id": "c008", "name": "Orc2", "race": "Orc", "health": "100", "power": "100" }
+    ]
+  }
+}

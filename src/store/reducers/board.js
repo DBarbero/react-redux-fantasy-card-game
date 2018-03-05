@@ -2,21 +2,21 @@ import * as at from '../actions/actionTypes'
 
 const initialState = {
   p1: {
-    cards: [ ]
+    cards: []
   },
   p2: {
-    cards: [ ]
+    cards: []
   },
 }
 
 const hitCard = (deck, id, damage) => {
   return deck
-    .filter( card => card.health - damage > 0 )
     .map( card => {
     	if ( card.id === id )
         return { ...card, health: card.health - damage }
       return card
     })
+    .filter( card => card.health > 0 )
 }
 
 const whoHit = (state, action) => {
@@ -32,7 +32,7 @@ const boardReducer = (state = initialState, action) => {
     case at.HIT_CARD:
       return whoHit(state, action)
     case at.FETCH_CARDS_SUCCESS:
-      return { ...state, p1: { ...state.p1, cards: action.p1 }, p2: { ...state.p2, cards: action.p2 } }
+      return { ...state, p1: { ...state.p1, cards: action.players.p1 }, p2: { ...state.p2, cards: action.players.p2 } }
   }
   return state
 }
