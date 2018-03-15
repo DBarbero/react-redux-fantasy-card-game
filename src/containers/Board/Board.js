@@ -16,7 +16,6 @@ class Board extends Component {
   }
 
   componentDidMount() {
-    console.log("%cFetching cards...", "background-color: #60da59; color: white; font-weight: bold;")
     this.props.onFetchCards()
   }
 

@@ -20,11 +20,13 @@ const hitCard = (deck, id, damage) => {
 }
 
 const whoHit = (state, action) => {
+  let playerHit = ''
   if (action.isFirst) {
-    return  { ...state, p2: {...state.p2, cards: hitCard(state.p2.cards, action.id, action.damage) }}
+    playerHit = 'p2'
   } else {
-    return { ...state, p1: {...state.p1, cards: hitCard(state.p1.cards, action.id, action.damage) }}
+    playerHit = 'p1'
   }
+  return { ...state, [playerHit]: {...state[playerHit], cards: hitCard(state[playerHit].cards, action.id, action.damage) }}
 }
 
 const boardReducer = (state = initialState, action) => {

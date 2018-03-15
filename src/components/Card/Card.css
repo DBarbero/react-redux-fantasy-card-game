@@ -14,6 +14,7 @@
   text-align: center;
   border-radius: 10px;
   cursor: pointer;
+  background: white;
 }
 
 .power:hover { background-color: var(--card-color-power); border-color: var(--card-color-power); }
